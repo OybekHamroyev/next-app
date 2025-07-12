@@ -1,20 +1,23 @@
+// lib/dbConnect.ts
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
+const MONGODB_URI = process.env.MONGODB_URI || "";
 
-if (!MONGODB_URI) throw new Error("MONGODB_URI is not defined");
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
+}
 
-let isConnected = false;
+let cached = (global as any).mongoose || { conn: null, promise: null };
 
 export async function dbConnect() {
-  if (isConnected) return;
+  if (cached.conn) return cached.conn;
 
-  if (mongoose.connection.readyState >= 1) {
-    isConnected = true;
-    console.log("salommm");
-    return;
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGODB_URI, {
+      bufferCommands: false,
+    });
   }
 
-  await mongoose.connect(MONGODB_URI);
-  isConnected = true;
+  cached.conn = await cached.promise;
+  return cached.conn;
 }

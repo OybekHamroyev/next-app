@@ -1,14 +1,17 @@
-import mongoose, { Schema } from "mongoose";
+// models/StudentModel.ts
+import mongoose, { Schema, model, models } from "mongoose";
 
-const studentSchema = new Schema({
-  name: { type: String, required: true },
-  age: Number,
-  groupId: {
-    type: Schema.Types.ObjectId,
-    ref: "Group",
-    required: true,
+const studentSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    age: { type: Number, required: true },
+    groupId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Group",
+      required: true,
+    },
   },
-});
+  { timestamps: true }
+);
 
-export const Student =
-  mongoose.models.Student || mongoose.model("Student", studentSchema);
+export const StudentModel = models.Student || model("Student", studentSchema);

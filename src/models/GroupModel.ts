@@ -1,8 +1,12 @@
-import mongoose, { Schema } from "mongoose";
+// models/GroupModel.ts
+import mongoose, { Schema, models, model } from "mongoose";
 
-const groupSchema = new Schema({
-  name: { type: String, required: true },
-  description: String,
-});
-export const Group =
-  mongoose.models.Group || mongoose.model("Group", groupSchema);
+const groupSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    description: { type: String },
+  },
+  { timestamps: true }
+);
+
+export const GroupModel = models.Group || model("Group", groupSchema);

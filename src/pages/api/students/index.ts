@@ -1,6 +1,8 @@
-import { dbConnect } from "../../../lib/dbConnect";
-import { Student } from "../../../models/StudentModel";
+// pages/api/students/index.ts
 import type { NextApiRequest, NextApiResponse } from "next";
+import { dbConnect } from "@/lib/dbConnect";
+import { StudentModel } from "@/models/StudentModel";
+import { Student } from "@/models/Student";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,12 +11,24 @@ export default async function handler(
   await dbConnect();
 
   if (req.method === "GET") {
-    const students = await Student.find().populate("groupId");
-    res.json(students);
+    try {
+      const students: Student[] = await StudentModel.find()
+        .populate("groupId")
+        .lean();
+      return res.status(200).json(students);
+    } catch (error) {
+      return res.status(500).json({ error: "Server error" });
+    }
   } else if (req.method === "POST") {
-    const student = await Student.create(req.body);
-    res.status(201).json(student);
+    try {
+      const newStudent = new StudentModel(req.body);
+      const savedStudent = await newStudent.save();
+      return res.status(201).json(savedStudent);
+    } catch (error) {
+      return res.status(400).json({ error: "Bad request" });
+    }
   } else {
-    res.status(405).end();
+    res.setHeader("Allow", ["GET", "POST"]);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
