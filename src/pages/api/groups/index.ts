@@ -14,6 +14,7 @@ export default async function handler(
       const groups: GroupDocument[] = await GroupModel.find().lean();
       return res.status(200).json(groups);
     } catch (error) {
+      console.error("GET /api/groups error:", error); // 👈 YANGILIK
       return res.status(500).json({ error: "Server error", details: error });
     }
   }
