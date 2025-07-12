@@ -3,7 +3,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import { Group } from "@/models/Group";
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function GroupsPage() {
   const { data, error } = useSWR("/api/groups", fetcher);
