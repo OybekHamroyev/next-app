@@ -2,6 +2,7 @@
 import useSWR from "swr";
 import Link from "next/link";
 import { Group } from "@/models/Group";
+import Head from "next/head";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -13,6 +14,46 @@ export default function GroupsPage() {
 
   return (
     <div>
+      <Head>
+        <title>Groups | My Next App</title>
+        <meta
+          name="description"
+          content="Explore all groups available in the system."
+        />
+        <meta
+          name="keywords"
+          content="groups, students, organization, next.js"
+        />
+        <meta name="author" content="Your Name" />
+
+        {/* Open Graph (Facebook, Telegram, etc.) */}
+        <meta property="og:title" content="Groups | My Next App" />
+        <meta
+          property="og:description"
+          content="Explore all student groups available in the system."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://next-app-8mok.vercel.app/groups"
+        />
+        <meta
+          property="og:image"
+          content="https://next-app-8mok.vercel.app/images/groups-preview.jpg"
+        />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Groups | My Next App" />
+        <meta
+          name="twitter:description"
+          content="Explore all student groups available in the system."
+        />
+        <meta
+          name="twitter:image"
+          content="https://next-app-8mok.vercel.app/images/groups-preview.jpg"
+        />
+      </Head>
       <h1>Groups</h1>
       <ul>
         {data.map((group: Group) => (
