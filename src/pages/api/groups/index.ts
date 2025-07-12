@@ -1,8 +1,11 @@
-// 📁 /pages/api/groups/index.ts
+import type { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "../../../lib/dbConnect";
 import { Group } from "../../../models/GroupModel";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   await dbConnect();
 
   if (req.method === "GET") {
