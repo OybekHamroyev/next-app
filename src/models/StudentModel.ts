@@ -1,12 +1,20 @@
-// models/StudentModel.ts
-import mongoose, { Schema, model, models } from "mongoose";
+// ✅ models/StudentModel.ts - Fully typed with Document
+import mongoose, {
+  Schema,
+  model,
+  models,
+  Document,
+  Model,
+  InferSchemaType,
+} from "mongoose";
 
+// Define the schema
 const studentSchema = new Schema(
   {
     name: { type: String, required: true },
     age: { type: Number, required: true },
     groupId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Group",
       required: true,
     },
@@ -14,4 +22,9 @@ const studentSchema = new Schema(
   { timestamps: true }
 );
 
-export const StudentModel = models.Student || model("Student", studentSchema);
+// Infer the TypeScript type
+export type StudentDocument = InferSchemaType<typeof studentSchema>;
+
+// Export the model with proper typing
+export const StudentModel: Model<StudentDocument> =
+  models.Student || model("Student", studentSchema);

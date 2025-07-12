@@ -1,8 +1,7 @@
-// pages/api/students/index.ts
+// ✅ pages/api/students/index.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "@/lib/dbConnect";
-import { StudentModel } from "@/models/StudentModel";
-import { Student } from "@/models/Student";
+import { StudentModel, StudentDocument } from "@/models/StudentModel";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,7 +11,7 @@ export default async function handler(
 
   if (req.method === "GET") {
     try {
-      const students: Student[] = await StudentModel.find()
+      const students: StudentDocument[] = await StudentModel.find()
         .populate("groupId")
         .lean();
       return res.status(200).json(students);

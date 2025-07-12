@@ -1,12 +1,23 @@
-// models/GroupModel.ts
-import mongoose, { Schema, models, model } from "mongoose";
+import mongoose, {
+  Schema,
+  model,
+  models,
+  Document,
+  Model,
+  InferSchemaType,
+} from "mongoose";
 
-const groupSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    description: { type: String },
-  },
-  { timestamps: true }
-);
+// Faqat SchemaType interfeys
+const groupSchema = new Schema({
+  name: { type: String, required: true },
+  description: { type: String },
+});
 
-export const GroupModel = models.Group || model("Group", groupSchema);
+// Schema asosida tur hosil qilamiz
+type GroupDocument = InferSchemaType<typeof groupSchema>;
+
+// Model yaratamiz
+export const GroupModel: Model<GroupDocument> =
+  models.Group || model("Group", groupSchema);
+
+export type { GroupDocument };

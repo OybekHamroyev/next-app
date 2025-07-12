@@ -1,5 +1,4 @@
-// src/pages/api/students/[id].ts
-
+// ✅ pages/api/students/[id].ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "@/lib/dbConnect";
 import { StudentModel } from "@/models/StudentModel";

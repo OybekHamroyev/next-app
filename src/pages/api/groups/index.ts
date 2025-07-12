@@ -1,8 +1,6 @@
-// pages/api/groups/index.ts
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "@/lib/dbConnect";
-import { GroupModel } from "@/models/GroupModel";
-import { Group } from "@/models/Group";
+import { GroupModel, GroupDocument } from "@/models/GroupModel";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,12 +10,14 @@ export default async function handler(
 
   if (req.method === "GET") {
     try {
-      const groups: Group[] = await GroupModel.find().lean();
+      const groups: GroupDocument[] = await GroupModel.find().lean();
       return res.status(200).json(groups);
     } catch (error) {
       return res.status(500).json({ error: "Server error" });
     }
-  } else if (req.method === "POST") {
+  }
+
+  if (req.method === "POST") {
     try {
       const newGroup = new GroupModel(req.body);
       const savedGroup = await newGroup.save();
@@ -25,8 +25,6 @@ export default async function handler(
     } catch (error) {
       return res.status(400).json({ error: "Bad request" });
     }
-  } else {
-    res.setHeader("Allow", ["GET", "POST"]);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
+  return res.status(405).end(); // Method Not Allowed
 }
