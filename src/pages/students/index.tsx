@@ -33,7 +33,7 @@ export default function StudentsPage() {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://next-app-8mok.vercel.app/students"
+          content="https://next-app-murex-one.vercel.app/students"
         />
       </Head>
 

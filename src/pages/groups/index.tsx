@@ -35,11 +35,11 @@ export default function GroupsPage() {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://next-app-8mok.vercel.app/groups"
+          content="https://next-app-murex-one.vercel.app/groups"
         />
         <meta
           property="og:image"
-          content="https://next-app-8mok.vercel.app/images/groups-preview.jpg"
+          content="https://next-app-murex-one.vercel.app/images/groups-preview.jpg"
         />
 
         {/* Twitter */}
@@ -51,7 +51,7 @@ export default function GroupsPage() {
         />
         <meta
           name="twitter:image"
-          content="https://next-app-8mok.vercel.app/images/groups-preview.jpg"
+          content="https://next-app-murex-one.vercel.app/images/groups-preview.jpg"
         />
       </Head>
       <h1>Groups</h1>

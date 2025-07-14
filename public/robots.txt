@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://next-app-murex-one.vercel.app
+
+# Sitemaps
+Sitemap: https://next-app-murex-one.vercel.app/sitemap.xml
